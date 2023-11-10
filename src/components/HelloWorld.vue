@@ -24,7 +24,6 @@
         <el-table-column prop="error_message" label="error_message" width="180"></el-table-column>
       </el-table>
 
-
     </el-row>
   </div>
 </template>
@@ -45,8 +44,8 @@ export default {
     }
   },
   methods: {
-    getWeatherInfo(){
-      console.log("getInfo")
+    getWeatherInfo () {
+      console.log('getInfo')
       this.$http.get('http://127.0.0.1:8081/apiInfo?apiId=' + this.weatherId)
         .then(Response => {
           console.log(Response.data[0].call_count)
@@ -54,15 +53,15 @@ export default {
           console.log(this.weatherCnt)
         })
     },
-    getWeatherList() {
-      console.log("getList")
+    getWeatherList () {
+      console.log('getList')
       this.$http.get('http://127.0.0.1:8081/apiDetail?apiId=' + this.weatherId)
         .then(Response => {
           this.weatherList = Response.data
         })
     },
-    getMapInfo(){
-      console.log("getInfo")
+    getMapInfo () {
+      console.log('getInfo')
       this.$http.get('http://127.0.0.1:8081/apiInfo?apiId=' + this.mapId)
         .then(Response => {
           console.log(Response.data[0].call_count)
@@ -70,25 +69,24 @@ export default {
           console.log(this.mapCnt)
         })
     },
-    getMapList() {
-      console.log("getList")
+    getMapList () {
+      console.log('getList')
       this.$http.get('http://127.0.0.1:8081/apiDetail?apiId=' + this.mapId)
-        .then(Response =>{
+        .then(Response => {
           this.mapList = Response.data
         })
     }
   },
-  created(){
-    this.getWeatherInfo(),
-    this.getWeatherList(),
-    this.getMapInfo(),
+  created () {
+    this.getWeatherInfo()
+    this.getWeatherList()
+    this.getMapInfo()
     this.getMapList()
   }
 
 }
 
 </script>
-
 
 <style>
 .a {
@@ -100,16 +98,14 @@ export default {
   font-size: large
 }
 
-.my-table {  
-    width: 100%;  
+.my-table {
+    width: 100%;
     text-align: center;
     margin: 0 0;
-    border-collapse: collapse;  
-    padding: 10px;  
-    border: 1px solid #ccc;    
-
-  }  
-
+    border-collapse: collapse;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
 
 </style>
 
