@@ -23,6 +23,7 @@
             <td>
               <button @click="editApi(api)">Edit</button>
               <button @click="deleteApi(api.id)">Delete</button>
+              <button @click="callApi(api.apiDescription)">Call</button>
             </td>
           </tr>
         </tbody>
@@ -108,6 +109,15 @@ export default {
       this.form.apiUrl = ''
       this.form.appUser = ''
       this.form.appKey = ''
+    },
+    callApi (description) {
+      axios.post(`http://localhost:8081/apiCall`, { description: description })
+        .then(response => {
+          alert(response.data.responseBody)
+        })
+        .catch(error => {
+          console.error(error)
+        })
     }
   }
 }
