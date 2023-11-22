@@ -1,57 +1,54 @@
 <template>
-    <div>
-      <h1>APIs</h1>
+  <div>
+    <h1>APIs</h1>
 
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Description</th>
-            <th>URL</th>
-            <th>User</th>
-            <th>Key</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="api in apis" :key="api.id">
-            <td>{{ api.id }}</td>
-            <td>{{ api.apiDescription }}</td>
-            <td>{{ api.apiUrl }}</td>
-            <td>{{ api.appUser }}</td>
-            <td>{{ api.appKey }}</td>
-            <td>
-              <button @click="editApi(api)">Edit</button>
-              <button @click="deleteApi(api.id)">Delete</button>
-              <button @click="callApi(api.apiDescription)">Call</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <el-table :data="apis">
+      <el-table-column prop="id" label="ID"></el-table-column>
+      <el-table-column prop="apiDescription" label="Description"></el-table-column>
+      <el-table-column prop="apiUrl" label="URL"></el-table-column>
+      <el-table-column prop="appUser" label="User"></el-table-column>
+      <el-table-column prop="appKey" label="Key"></el-table-column>
+      <el-table-column label="Actions">
+        <template slot-scope="{ row }">
+          <el-button @click="editApi(row)">Edit</el-button>
+          <el-button @click="deleteApi(row.id)">Delete</el-button>
+          <el-button @click="callApi(row.apiDescription)">Call</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
 
-      <h2>Add / Edit API</h2>
+    <h2>API Response</h2>
 
-      <form @submit.prevent="submitForm">
-        <label>
-          Description:
-          <input type="text" v-model="form.apiDescription" required>
-        </label>
-        <label>
-          URL:
-          <input type="text" v-model="form.apiUrl" required>
-        </label>
-        <label>
-          User:
-          <input type="text" v-model="form.appUser" required>
-        </label>
-        <label>
-          Key:
-          <input type="text" v-model="form.appKey" required>
-        </label>
-        <button type="submit">{{ form.id ? 'Update' : 'Add' }}</button>
-      </form>
-    </div>
-  </template>
+<el-input
+  type="textarea"
+  :rows="5"
+  placeholder="API response will be displayed here"
+  v-model="apiResponse"
+  readonly
+></el-input>
+
+    <h2>Add / Edit API</h2>
+
+    <el-form @submit.native.prevent="submitForm">
+      <el-form-item label="Description">
+        <el-input v-model="form.apiDescription" required></el-input>
+      </el-form-item>
+      <el-form-item label="URL">
+        <el-input v-model="form.apiUrl" required></el-input>
+      </el-form-item>
+      <el-form-item label="User">
+        <el-input v-model="form.appUser" required></el-input>
+      </el-form-item>
+      <el-form-item label="Key">
+        <el-input v-model="form.appKey" required></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" native-type="submit">{{ form.id ? 'Update' : 'Add' }}</el-button>
+      </el-form-item>
+    </el-form>
+
+  </div>
+</template>
 
 <script>
 import axios from 'axios'
@@ -66,7 +63,8 @@ export default {
         apiUrl: '',
         appUser: '',
         appKey: ''
-      }
+      },
+      apiResponse: ''
     }
   },
   created () {
@@ -113,7 +111,7 @@ export default {
     callApi (description) {
       axios.post(`http://localhost:8081/apiCall`, { description: description })
         .then(response => {
-          alert(response.data.responseBody)
+          this.apiResponse = response.data.responseBody
         })
         .catch(error => {
           console.error(error)
