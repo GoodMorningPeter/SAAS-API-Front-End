@@ -1,5 +1,8 @@
 <template>
   <div>
+    <el-button type="primary">
+      <router-link to="/hello-world-wxy">前往API日志页面</router-link>
+    </el-button>
     <h1>APIs</h1>
 
     <el-table :data="apis">
@@ -37,10 +40,10 @@
         <el-input v-model="form.apiUrl" required></el-input>
       </el-form-item>
       <el-form-item label="User">
-        <el-input v-model="form.appUser" required></el-input>
+        <el-input v-model="form.appUser"></el-input>
       </el-form-item>
       <el-form-item label="Key">
-        <el-input v-model="form.appKey" required></el-input>
+        <el-input v-model="form.appKey"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">{{ form.id ? 'Update' : 'Add' }}</el-button>
@@ -111,7 +114,11 @@ export default {
     callApi (description) {
       axios.post(`http://localhost:8081/apiCall`, { description: description })
         .then(response => {
-          this.apiResponse = response.data.responseBody
+          if (response.data.responseBody === '403') {
+            this.$message.error('Insufficient permissions to call this API')
+          } else {
+            this.apiResponse = response.data.responseBody
+          }
         })
         .catch(error => {
           console.error(error)
@@ -120,3 +127,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.el-button a {
+  color: white !important;
+}
+</style>

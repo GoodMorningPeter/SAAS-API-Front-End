@@ -1,5 +1,8 @@
 <template>
     <div>
+    <el-button type="primary">
+      <router-link to="/">前往API操作页面</router-link>
+    </el-button>
     <el-button @click="getWeatherInfo">获取天气信息</el-button>
     <el-button @click="getWeatherList">获取天气详细信息</el-button>
 
@@ -36,8 +39,10 @@ export default {
   },
   methods: {
     getWeatherInfo () {
+      console.log(this.weatherId)
       axios.get('http://127.0.0.1:8081/apiInfo?apiId=' + this.weatherId)
         .then((response) => {
+          console.log(response)
           this.weatherCnt = response.data[0].call_count
         })
         .catch((err) => {
@@ -84,7 +89,9 @@ export default {
     text-align: center;
     font-size: large;
 }
-
+.el-button a {
+  color: white !important;;
+}
 .my-table {
     width: 100%;
     text-align: center;
