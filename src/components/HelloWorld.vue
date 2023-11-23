@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-button type="primary">
-      <router-link to="/hello-world-wxy">前往API日志页面</router-link>
+      <router-link to="/hello-world-lja">前往API日志页面</router-link>
     </el-button>
     <h1>APIs</h1>
 

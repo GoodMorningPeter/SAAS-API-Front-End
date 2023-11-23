@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import HelloWorldWXY from '@/components/HelloWorldWXY' // 新增行
+import HelloWorldLJA from '@/components/HelloWorldLJA' // 新增行
 
 Vue.use(Router)
 
@@ -13,9 +13,9 @@ export default new Router({
       component: HelloWorld
     },
     {
-      path: '/hello-world-wxy', // 新增行
-      name: 'HelloWorldWXY', // 新增行
-      component: HelloWorldWXY // 新增行
+      path: '/hello-world-lja', // 新增行
+      name: 'HelloWorldLJA', // 新增行
+      component: HelloWorldLJA // 新增行
     }
   ]
 })
