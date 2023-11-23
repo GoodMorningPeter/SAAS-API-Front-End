@@ -116,6 +116,8 @@ export default {
         .then(response => {
           if (response.data.responseBody === '403') {
             this.$message.error('Insufficient permissions to call this API')
+          } else if (response.data.responseBody === '404') {
+            this.$message.error('URL Not Found')
           } else {
             this.apiResponse = response.data.responseBody
           }
